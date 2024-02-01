@@ -1,0 +1,31 @@
+Solution:
+
+Import the 'fs' module to work with the file system
+Define a function that reads the content of a file asynchronously.
+Use fs.readFile to read the file content
+'utf8' specifies the encoding for the file content as a string
+The callback function is executed when the file reading is completed or an error occurs
+Check if there is an error during file reading
+Check if the error is due to the file not existing
+If there is no error, print the file content to the console
+
+Code:
+const fs = require('fs');
+
+function readFileContent(filePath) {
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                console.error(`Error reading file: ${err.code}: ${err.message}`);
+            } else {
+                console.error(`Error reading file: ${err.message}`);
+            }
+        } else {
+            console.log('File Content:');
+            console.log(data);
+        }
+    });
+}
+readFileContent('test-files/file1.txt');
+readFileContent('test-files/empty-file.txt');
+readFileContent('test-files/nonexistent-file.txt');
